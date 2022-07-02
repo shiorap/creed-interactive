@@ -18,10 +18,10 @@ return new class extends Migration
         Schema::create('genre_podcasts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('genre_id');
-            $table->string('podcast_unique_id', 255);
+            $table->string('podcast_id', 255);
             $table->foreign('genre_id')->references('id')->on('genres');
-            $table->foreign('podcast_unique_id')->references('unique_id')->on('podcasts');
-            $table->unique(['genre_id', 'podcast_unique_id']);
+            $table->foreign('podcast_id')->references('id')->on('podcasts');
+            $table->unique(['genre_id', 'podcast_id']);
 
         });
     }

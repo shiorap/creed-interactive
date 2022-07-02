@@ -18,7 +18,7 @@ class PodcastController extends Controller
     public function index(Request $request)
     {
         $genre = Genre::findOrFail($request->get('genre_id'));
-        $podcasts = $genre->podcasts()->paginate();
+        $podcasts = $genre->podcasts()->paginate(5);
 
         $hasPrevious = ($podcasts->currentPage() > 1);
         $hasNext = ($podcasts->currentPage() < $podcasts->lastPage());

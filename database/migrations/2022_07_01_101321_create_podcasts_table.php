@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('podcasts', function (Blueprint $table) {
-            $table->id();
-            $table->string('unique_id',255)->nullable(false)->unique();
+            $table->string('id',255)->nullable(false)->primary();
             $table->string('title', '255')->index();
             $table->string('publisher', 255)->index();
             $table->text('image')->nullable();

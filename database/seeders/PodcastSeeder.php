@@ -21,27 +21,36 @@ class PodcastSeeder extends Seeder
     {
         $content = json_decode(File::get(base_path('database/data/podcasts-by-genre.json')));
 
+        // let's create all the genre first.
+        // we can only import the genre's that we have data,
+        // the rest we can drop
         foreach($content as $genreRaw) {
-            $genre = Genre::firstOrCreate([
+            Genre::firstOrCreate([
                 'id' => $genreRaw->id,
                 'name' => $genreRaw->name,
                 'listennotes_url' => $genreRaw->listennotes_url
             ]);
+        }
 
+        // now that we know we have all the genres,
+        // let's import the podcasts
+        foreach($content as $genreRaw) {
             foreach($genreRaw->podcasts as $podcastRaw) {
-                $podcast = Podcast::whereUniqueId($podcastRaw->id)->first();
+                $podcast = Podcast::find($podcastRaw->id);
 
                 if(!$podcast) {
                     // let's map and sanitize our data
                     $data = json_decode(json_encode($podcastRaw), true);
-                    $data['unique_id'] = $data['id'];
-                    unset($data['id']);
                     unset($data['genre_ids']);
 
                     $podcast = Podcast::create($data);
                 }
 
-                $podcast->genres()->syncWithoutDetaching($genre);
+                foreach($podcastRaw->genre_ids as $genre_id) {
+                    if($genre = Genre::find($genre_id)) {
+                        $podcast->genres()->syncWithoutDetaching($genre);
+                    }
+                }
             }
         }
     }

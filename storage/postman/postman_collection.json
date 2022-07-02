@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "9266ac04-051c-4927-a963-dd56c95212f2",
+		"name": "Creed Interactive",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/register?name=Ralph Cabanero&email=shiorap@yahoo.com&password=creedInteractive1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"register"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Ralph Cabanero"
+						},
+						{
+							"key": "email",
+							"value": "shiorap@yahoo.com"
+						},
+						{
+							"key": "password",
+							"value": "creedInteractive1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/login?email=shiorap@yahoo.com&password=creedInteractive1",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "shiorap@yahoo.com"
+						},
+						{
+							"key": "password",
+							"value": "creedInteractive1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Podcast By Genre",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1|PxhE3Ttph237RGwaTcWQtMZCuf5iHNUFa64XdOK5",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/podcasts?genre_id=140",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"podcasts"
+					],
+					"query": [
+						{
+							"key": "genre_id",
+							"value": "140"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost"
+		}
+	]
+}

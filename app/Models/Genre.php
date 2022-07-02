@@ -14,6 +14,6 @@ class Genre extends Model
 
     public function podcasts()
     {
-        return $this->belongsToMany(Podcast::class, 'genre_podcasts', 'genre_id', 'podcast_unique_id');
+        return $this->belongsToMany(Podcast::class, 'genre_podcasts', 'genre_id', 'podcast_id');
     }
 }

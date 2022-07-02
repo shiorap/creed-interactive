@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Podcast extends Model
 {
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     public $fillable = [
-        'unique_id',
         'title',
         'publisher',
         'image',
@@ -25,9 +27,7 @@ class Podcast extends Model
         'type'
     ];
 
-    protected $perPage = 5;
-
-    protected $hidden = ['unique_id', 'pivot', 'created_at', 'updated_at'];
+    protected $hidden = ['pivot', 'created_at', 'updated_at'];
 
     protected $appends = [
         'genre_ids'
@@ -40,16 +40,11 @@ class Podcast extends Model
 
     public function genres()
     {
-        return $this->belongsToMany(Genre::class, 'genre_podcasts', 'podcast_unique_id', 'genre_id');
+        return $this->belongsToMany(Genre::class, 'genre_podcasts', 'podcast_id', 'genre_id');
     }
 
     public function getGenreIdsAttribute()
     {
         return GenrePodcast::wherePodcastId($this->id)->pluck('genre_id');
-    }
-
-    public function getIdAttribute()
-    {
-        return $this->unique_id;
     }
 }

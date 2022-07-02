@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Genre;
+use App\Models\GenrePodcast;
 use App\Models\Podcast;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -38,10 +39,9 @@ class PodcastSeeder extends Seeder
                     unset($data['genre_ids']);
 
                     $podcast = Podcast::create($data);
-                    print_r($data);
                 }
 
-                $podcast->genres()->sync($genre);
+                $podcast->genres()->syncWithoutDetaching($genre);
             }
         }
     }

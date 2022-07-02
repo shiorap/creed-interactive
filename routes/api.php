@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// public routes
+Route::post('/register', [App\Http\Controllers\AuthController::class, 'register']);
+Route::post('/login', [App\Http\Controllers\AuthController::class, 'login'])->name('login');
+
+// route guard, requires authentication
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::resource('podcasts', App\Http\Controllers\PodcastController::class)->only([
+        'index'
+    ]);
 });

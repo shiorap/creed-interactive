@@ -7,6 +7,7 @@ use App\Models\Genre;
 use App\Models\Podcast;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Validation\ValidationException;
 
 class PodcastController extends Controller
 {
@@ -17,6 +18,12 @@ class PodcastController extends Controller
      */
     public function index(Request $request)
     {
+        if(!$request->get('genre_id')) {
+            throw ValidationException::withMessages([
+                'genre_id' => 'The field is required'
+            ]);
+        }
+
         $genre = Genre::findOrFail($request->get('genre_id'));
         $podcasts = $genre->podcasts()->paginate(5);
 
